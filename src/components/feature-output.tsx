@@ -200,7 +200,7 @@ const FeatureOutput: React.FC<FeatureOutputProps> = ({ featureId, data, isLoadin
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Image className="w-5 h-5" alt="" />
+                  <Image className="w-5 h-5" aria-hidden="true" />
                   <span>Disaster Risk Heatmap</span>
                 </CardTitle>
               </CardHeader>
