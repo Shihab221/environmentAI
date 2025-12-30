@@ -26,29 +26,29 @@ const AboutPage = () => {
 
   const team = [
     {
-      name: "Dr. Sarah Chen",
-      role: "Chief AI Officer",
-      expertise: "Multimodal Machine Learning",
+      name: "Isha Das",
+      role: "LEAD Officer",
+      expertise: "Management and Machine Learning",
       image: "👩‍🔬"
     },
     {
-      name: "Dr. Marcus Rodriguez",
-      role: "Head of Environmental Science",
-      expertise: "Climate Modeling & Ecology",
+      name: "Shihab Ahemed",
+      role: "Developer & Engineer",
+      expertise: "Development and Machine Learning",
       image: "👨‍🌾"
     },
-    {
-      name: "Dr. Aisha Patel",
-      role: "Lead ML Engineer",
-      expertise: "Computer Vision & NLP",
-      image: "👩‍💻"
-    },
-    {
-      name: "Dr. James Wilson",
-      role: "Research Director",
-      expertise: "Urban Planning & GIS",
-      image: "👨‍🏫"
-    }
+    // {
+    //   name: "Dr. Aisha Patel",
+    //   role: "Lead ML Engineer",
+    //   expertise: "Computer Vision & NLP",
+    //   image: "👩‍💻"
+    // },
+    // {
+    //   name: "Dr. James Wilson",
+    //   role: "Research Director",
+    //   expertise: "Urban Planning & GIS",
+    //   image: "👨‍🏫"
+    // }
   ]
 
   return (

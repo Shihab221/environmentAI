@@ -144,7 +144,7 @@ const Footer = () => {
               © {currentYear} EnvironmentAI. All rights reserved.
             </p>
             <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 md:mt-0">
-              Built with ❤️ for environmental intelligence
+              Built by swardverse
             </p>
           </div>
         </div>
