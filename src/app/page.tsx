@@ -32,12 +32,24 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Animated Bubble Background */}
+      <div className="bubble-bg">
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+      </div>
+
       {/* Hero Section */}
       <Hero />
 
       {/* Stats Section */}
-      <section className="py-16 bg-zinc-50 dark:bg-zinc-900/80 backdrop-blur-sm">
+      <section className="py-16 bg-transparent backdrop-blur-sm relative z-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -72,7 +84,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-24 bg-zinc-50 dark:bg-zinc-950/80 relative overflow-hidden">
+      <section id="features" className="py-24 bg-transparent relative overflow-hidden z-10">
         {/* Subtle background pattern */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="absolute inset-0" style={{

@@ -3,7 +3,7 @@ import { Button } from "./ui/button"
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden min-h-screen flex items-center bg-zinc-50 dark:bg-zinc-900/50">
+    <section className="relative overflow-hidden min-h-screen flex items-center bg-transparent">
       {/* Background Image */}
       <div className="absolute inset-0">
         <div
