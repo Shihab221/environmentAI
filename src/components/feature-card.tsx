@@ -10,35 +10,45 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = ({ feature, onClick }) => {
   return (
     <motion.div
-      whileHover={{ scale: 1.05, y: -5 }}
-      whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      whileHover={{ scale: 1.02, y: -8 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
       <Card
-        className="cursor-pointer group relative overflow-hidden border-2 transition-all duration-300 hover:border-green-300 dark:hover:border-green-500"
+        className="cursor-pointer group relative overflow-hidden h-full bg-card-gradient dark:bg-card-gradient-dark backdrop-blur-sm border-0 shadow-modern hover:shadow-card-hover transition-all duration-500"
         onClick={onClick}
       >
-        {/* Gradient Border Effect */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500/20 to-amber-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Modern Gradient Border Effect */}
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-green-500/10 via-emerald-300/5 to-green-500/10 opacity-0 group-hover:opacity-100 transition-all duration-500" />
 
-        <CardContent className="relative p-6">
+        {/* Subtle Inner Glow */}
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent dark:from-white/5 dark:to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+
+        <CardContent className="relative p-6 h-full flex flex-col">
           {/* Emoji and Title */}
           <div className="flex items-center space-x-3 mb-4">
-            <span className="text-3xl">{feature.emoji}</span>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+            <span className="text-3xl filter drop-shadow-sm">{feature.emoji}</span>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white leading-tight line-clamp-2">
               {feature.title}
             </h3>
           </div>
 
-          {/* Description */}
-          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-            {feature.description}
-          </p>
+          {/* Description - Fixed height container */}
+          <div className="flex-1 mb-4">
+            <p className="text-sm leading-relaxed line-clamp-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              {feature.description}
+            </p>
+          </div>
 
           {/* Hover Indicator */}
-          <div className="mt-4 flex items-center text-green-600 dark:text-green-400 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Learn more
-            <span className="ml-1">→</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center text-green-600 dark:text-green-400 font-medium text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0">
+              Learn more
+              <span className="ml-1 transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </div>
+
+            {/* Modern corner accent */}
+            <div className="w-2 h-2 rounded-full bg-gradient-to-br from-green-400 to-emerald-300 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100" />
           </div>
         </CardContent>
       </Card>

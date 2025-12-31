@@ -37,7 +37,7 @@ export default function Home() {
       <Hero />
 
       {/* Stats Section */}
-      <section className="py-16 bg-white dark:bg-slate-800">
+      <section className="py-16 bg-zinc-50 dark:bg-zinc-900/80 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -47,25 +47,40 @@ export default function Home() {
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
           >
             {stats.map((stat, index) => (
-              <Card key={index} className="text-center">
-                <CardContent className="pt-6">
-                  <stat.icon className="h-8 w-8 mx-auto mb-4 text-green-600" />
-                  <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
-                    {stat.value}
-                  </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="text-center bg-card-gradient dark:bg-card-gradient-dark backdrop-blur-sm border-0 shadow-modern hover:shadow-modern-lg transition-all duration-300 group">
+                  <CardContent className="pt-6">
+                    <stat.icon className="h-8 w-8 mx-auto mb-4 text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform duration-300" />
+                    <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+                      {stat.value}
+                    </div>
+                  <p className="text-sm font-medium bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
                     {stat.label}
                   </p>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-24 bg-white dark:bg-slate-950">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section id="features" className="py-24 bg-zinc-50 dark:bg-zinc-950/80 relative overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2310b981' fill-opacity='0.1'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -73,10 +88,15 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
-              Powerful AI Features for Environmental Intelligence
+            <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
+              <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-green-700 bg-clip-text text-transparent">
+                Powerful AI Features
+              </span>
+              <span className="text-slate-800 dark:text-white">
+                {" "}for Environmental Intelligence
+              </span>
             </h2>
-            <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+            <p className="mt-6 text-lg max-w-3xl mx-auto leading-relaxed font-medium bg-gradient-to-r from-indigo-600 via-purple-600 to-teal-600 bg-clip-text text-transparent">
               Discover our comprehensive suite of multimodal AI tools designed to protect,
               understand, and harmonize with our natural environment.
             </p>
@@ -97,6 +117,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                className="h-full"
               >
                 <FeatureCard
                   feature={feature}
