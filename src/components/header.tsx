@@ -60,7 +60,7 @@ const Header = () => {
         </Link>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-16">
           <Link
             href="/"
             className={`text-sm font-medium transition-colors hover:text-green-600 dark:hover:text-green-400 ${
