@@ -35,7 +35,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ feature, onClick }) => {
 
           {/* Description - Fixed height container */}
           <div className="flex-1 mb-4">
-            <p className="text-sm leading-relaxed line-clamp-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <p className="text-sm leading-relaxed line-clamp-3 bg-gradient-to-r from-green-600 via-emerald-500 to-teal-600 bg-clip-text text-transparent">
               {feature.description}
             </p>
           </div>

@@ -40,9 +40,6 @@ export default function Home() {
         <div className="bubble"></div>
         <div className="bubble"></div>
         <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
       </div>
 
       {/* Hero Section */}
@@ -72,7 +69,7 @@ export default function Home() {
                     <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
                       {stat.value}
                     </div>
-                  <p className="text-sm font-medium bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+                  <p className="text-sm font-medium bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                     {stat.label}
                   </p>
                   </CardContent>
@@ -108,7 +105,7 @@ export default function Home() {
                 {" "}for Environmental Intelligence
               </span>
             </h2>
-            <p className="mt-6 text-lg max-w-3xl mx-auto leading-relaxed font-medium bg-gradient-to-r from-indigo-600 via-purple-600 to-teal-600 bg-clip-text text-transparent">
+            <p className="mt-6 text-lg max-w-3xl mx-auto leading-relaxed font-medium bg-gradient-to-r from-green-600 via-emerald-500 to-cyan-600 bg-clip-text text-transparent">
               Discover our comprehensive suite of multimodal AI tools designed to protect,
               understand, and harmonize with our natural environment.
             </p>
