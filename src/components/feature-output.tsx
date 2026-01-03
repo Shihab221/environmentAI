@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Button } from "./ui/button"
-import { Download, Play, FileText, Image, Music, Video } from "lucide-react"
+import { Download, Play, FileText, Image, Music, Video, Cloud, Wind, Droplets, Thermometer, AlertTriangle, CheckCircle } from "lucide-react"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js'
 import { Line, Bar } from 'react-chartjs-2'
 import { downloadFile, createMockAudioBlob, createMockVideoBlob } from "@/lib/utils"
@@ -165,11 +165,34 @@ const FeatureOutput: React.FC<FeatureOutputProps> = ({ featureId, data, isLoadin
 
   if (isLoading) {
     return (
-      <Card className="w-full">
-        <CardContent className="flex items-center justify-center py-12">
-          <div className="text-center">
-            <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-slate-600 dark:text-slate-400">Processing your data...</p>
+      <Card className="w-full bg-card-gradient dark:bg-card-gradient-dark backdrop-blur-sm border-0 shadow-modern">
+        <CardContent className="flex items-center justify-center py-16">
+          <div className="text-center max-w-md">
+            <div className="relative w-16 h-16 mx-auto mb-6">
+              <div className="w-16 h-16 border-4 border-green-200 dark:border-green-900 rounded-full"></div>
+              <div className="absolute top-0 left-0 w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+              <div className="absolute top-2 left-2 w-12 h-12 border-4 border-emerald-400 border-b-transparent rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
+            </div>
+            <p className="text-xl font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-3">
+              AI Analysis in Progress
+            </p>
+            <div className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+              <p className="flex items-center justify-center gap-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                Querying Hugging Face AI models...
+              </p>
+              <p className="flex items-center justify-center gap-2">
+                <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }}></span>
+                Fetching regional environmental data...
+              </p>
+              <p className="flex items-center justify-center gap-2">
+                <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style={{ animationDelay: '0.6s' }}></span>
+                Generating personalized insights...
+              </p>
+            </div>
+            <p className="mt-4 text-xs text-slate-400">
+              This may take 3-5 seconds for comprehensive analysis
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -179,18 +202,89 @@ const FeatureOutput: React.FC<FeatureOutputProps> = ({ featureId, data, isLoadin
   return (
     <div className="space-y-6">
       {/* Results Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center"
-      >
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-          Analysis Results
-        </h2>
-        <p className="text-slate-600 dark:text-slate-400">
-          Here&apos;s what our AI discovered from your inputs
-        </p>
-      </motion.div>
+      {data && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center"
+        >
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 via-emerald-500 to-green-700 bg-clip-text text-transparent mb-2">
+            AI Analysis Results
+          </h2>
+          <p className="text-slate-600 dark:text-slate-400 mb-3">
+            Powered by Hugging Face AI + Regional Environmental Data
+          </p>
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded text-xs font-medium">
+              🤗 Hugging Face
+            </span>
+            <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded text-xs font-medium">
+              🌍 Regional Data
+            </span>
+            <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded text-xs font-medium">
+              ☁️ Weather API
+            </span>
+            {data.cityName || data.targetRegion ? (
+              <span className="px-2 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded text-xs font-medium">
+                📍 {data.cityName || data.targetRegion}
+              </span>
+            ) : null}
+          </div>
+        </motion.div>
+      )}
+
+      {/* Input Completeness Warning Banner */}
+      {data && data._inputWarning && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-300 dark:border-amber-700 rounded-xl"
+        >
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="w-6 h-6 text-amber-500 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="font-semibold text-amber-800 dark:text-amber-200 mb-1">
+                Partial Input Detected
+              </h3>
+              <p className="text-sm text-amber-700 dark:text-amber-300">
+                {data._inputWarning}
+              </p>
+              <div className="mt-2 flex items-center gap-2">
+                <div className="flex-1 bg-amber-200 dark:bg-amber-800 rounded-full h-2">
+                  <div 
+                    className="bg-amber-500 h-2 rounded-full transition-all" 
+                    style={{ width: `${data._inputPercentage || 0}%` }}
+                  ></div>
+                </div>
+                <span className="text-xs font-medium text-amber-600 dark:text-amber-400">
+                  {data._inputPercentage || 0}% complete
+                </span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Input Complete Success Banner */}
+      {data && !data._inputWarning && data._inputPercentage >= 80 && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-300 dark:border-green-700 rounded-xl"
+        >
+          <div className="flex items-center gap-3">
+            <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0" />
+            <div>
+              <h3 className="font-semibold text-green-800 dark:text-green-200">
+                Complete Analysis Generated
+              </h3>
+              <p className="text-sm text-green-700 dark:text-green-300">
+                All required inputs were provided. Results are based on comprehensive data analysis.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       {/* Feature-specific outputs */}
       {featureId === 1 && data && (
@@ -253,6 +347,138 @@ const FeatureOutput: React.FC<FeatureOutputProps> = ({ featureId, data, isLoadin
               </CardHeader>
               <CardContent>
                 <p className="text-slate-700 dark:text-slate-300">{data.alertMessage}</p>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Real-time Weather Data */}
+          {data.weatherData && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Cloud className="w-5 h-5" />
+                  <span>Live Weather Data</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Thermometer className="w-4 h-4 text-red-500" />
+                      <span>Temperature</span>
+                    </div>
+                    <span className="font-semibold">{data.weatherData.temperature}°C</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Droplets className="w-4 h-4 text-blue-500" />
+                      <span>Humidity</span>
+                    </div>
+                    <span className="font-semibold">{data.weatherData.humidity}%</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Wind className="w-4 h-4 text-gray-500" />
+                      <span>Wind Speed</span>
+                    </div>
+                    <span className="font-semibold">{data.weatherData.windSpeed} m/s</span>
+                  </div>
+                  <div className="pt-2 border-t">
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                      {data.weatherData.city}, {data.weatherData.country} - {data.weatherData.description}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Air Quality Data */}
+          {data.airQualityData && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Wind className="w-5 h-5" />
+                  <span>Air Quality Index</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center mb-4">
+                  <div className={`text-4xl font-bold ${
+                    data.airQualityData.aqi <= 2 ? 'text-green-600' :
+                    data.airQualityData.aqi <= 3 ? 'text-yellow-600' : 'text-red-600'
+                  }`}>
+                    {data.airQualityData.qualityLevel}
+                  </div>
+                  <p className="text-sm text-slate-500">AQI Level: {data.airQualityData.aqi}/5</p>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>PM2.5</span>
+                    <span>{data.airQualityData.components.pm2_5?.toFixed(1)} µg/m³</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>PM10</span>
+                    <span>{data.airQualityData.components.pm10?.toFixed(1)} µg/m³</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>O3</span>
+                    <span>{data.airQualityData.components.o3?.toFixed(1)} µg/m³</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>NO2</span>
+                    <span>{data.airQualityData.components.no2?.toFixed(1)} µg/m³</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Risk Analysis */}
+          {data.riskAnalysis && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Risk Assessment</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span>Flood Risk</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 bg-slate-200 rounded-full h-2">
+                        <div className="bg-blue-500 h-2 rounded-full" style={{ width: `${data.riskAnalysis.floodRisk}%` }}></div>
+                      </div>
+                      <span className="text-sm font-medium">{data.riskAnalysis.floodRisk}%</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span>Storm Risk</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 bg-slate-200 rounded-full h-2">
+                        <div className="bg-purple-500 h-2 rounded-full" style={{ width: `${data.riskAnalysis.stormRisk}%` }}></div>
+                      </div>
+                      <span className="text-sm font-medium">{data.riskAnalysis.stormRisk}%</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span>Heatwave Risk</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 bg-slate-200 rounded-full h-2">
+                        <div className="bg-orange-500 h-2 rounded-full" style={{ width: `${data.riskAnalysis.heatwaveRisk}%` }}></div>
+                      </div>
+                      <span className="text-sm font-medium">{data.riskAnalysis.heatwaveRisk}%</span>
+                    </div>
+                  </div>
+                  <div className="pt-2 border-t">
+                    <div className={`text-center font-semibold ${
+                      data.riskAnalysis.riskLevel === 'Critical' ? 'text-red-600' :
+                      data.riskAnalysis.riskLevel === 'High' ? 'text-orange-600' :
+                      data.riskAnalysis.riskLevel === 'Moderate' ? 'text-yellow-600' : 'text-green-600'
+                    }`}>
+                      Overall: {data.riskAnalysis.riskLevel} ({data.riskAnalysis.overallRisk}%)
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           )}
@@ -964,12 +1190,22 @@ const FeatureOutput: React.FC<FeatureOutputProps> = ({ featureId, data, isLoadin
 
       {/* No results state */}
       {!data && !isLoading && (
-        <Card className="w-full">
-          <CardContent className="flex items-center justify-center py-12">
+        <Card className="w-full bg-card-gradient dark:bg-card-gradient-dark backdrop-blur-sm border-0 shadow-modern">
+          <CardContent className="flex items-center justify-center py-16">
             <div className="text-center">
-              <p className="text-slate-600 dark:text-slate-400">
-                Submit the form to see analysis results
+              <div className="text-5xl mb-4">🔬</div>
+              <h3 className="text-xl font-semibold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
+                Ready for AI Analysis
+              </h3>
+              <p className="text-slate-500 dark:text-slate-400 max-w-sm mb-4">
+                Default values are pre-filled. Click &quot;Run AI Analysis&quot; to generate region-specific insights, or modify the inputs first.
               </p>
+              <div className="flex items-center justify-center gap-2 flex-wrap text-xs">
+                <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded font-medium">🤗 Hugging Face</span>
+                <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded font-medium">🌍 15+ Regions</span>
+                <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded font-medium">☁️ Weather API</span>
+                <span className="px-2 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded font-medium">📊 Real Data</span>
+              </div>
             </div>
           </CardContent>
         </Card>

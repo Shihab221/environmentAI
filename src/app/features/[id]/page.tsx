@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { FeatureForm } from "@/components/feature-form"
 import { FeatureOutput } from "@/components/feature-output"
-import { features, generateMockResponse } from "@/lib/mock-data"
+import { features } from "@/lib/mock-data"
 import { Feature } from "@/lib/types"
 
 export default function FeaturePage() {
@@ -16,6 +16,7 @@ export default function FeaturePage() {
   const [feature, setFeature] = useState<Feature | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState<any>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const featureId = parseInt(params.id as string)
 
@@ -31,16 +32,25 @@ export default function FeaturePage() {
   const handleFormSubmit = async (formData: FormData) => {
     setIsLoading(true)
     setResults(null)
+    setError(null)
 
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Call the real API endpoint
+      const response = await fetch(`/api/features/${featureId}`, {
+        method: 'POST',
+        body: formData,
+      })
 
-      // Generate mock response based on feature
-      const mockResponse = generateMockResponse(featureId, formData)
-      setResults(mockResponse)
-    } catch (error) {
-      console.error('Error processing form:', error)
+      const data = await response.json()
+
+      if (data.success) {
+        setResults(data.data)
+      } else {
+        setError(data.message || 'Analysis failed. Please provide valid inputs.')
+      }
+    } catch (err) {
+      console.error('Error processing form:', err)
+      setError('Failed to connect to the server. Please try again.')
     } finally {
       setIsLoading(false)
     }
@@ -127,6 +137,23 @@ export default function FeaturePage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
           >
+            {/* Error Display */}
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+              >
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="font-semibold text-red-800 dark:text-red-200">Input Required</h3>
+                    <p className="text-sm text-red-600 dark:text-red-300 mt-1">{error}</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
             <FeatureOutput
               featureId={featureId}
               data={results}
