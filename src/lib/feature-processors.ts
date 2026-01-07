@@ -350,15 +350,15 @@ export async function processEmotionScanner(formData: Record<string, any>) {
     
     // Generate correlations based on weather and air quality
     const correlations = [
-      { 
-        factor: 'Weather', 
-        correlation: weather?.temperature > 25 ? 0.7 : 0.5, 
-        impact: weather?.description?.includes('clear') ? 'Positive' : 'Moderate' 
+      {
+        factor: 'Weather',
+        correlation: weather?.temperature ? (weather.temperature > 25 ? 0.7 : 0.5) : 0.5,
+        impact: weather?.description?.includes('clear') ? 'Positive' : 'Moderate'
       },
-      { 
-        factor: 'Air Quality', 
-        correlation: airQuality?.aqi <= 2 ? 0.8 : 0.4, 
-        impact: airQuality?.aqi <= 2 ? 'Positive' : 'Negative' 
+      {
+        factor: 'Air Quality',
+        correlation: airQuality?.aqi ? (airQuality.aqi <= 2 ? 0.8 : 0.4) : 0.4,
+        impact: airQuality?.aqi ? (airQuality.aqi <= 2 ? 'Positive' : 'Negative') : 'Unknown'
       },
       { 
         factor: 'Natural Light', 
@@ -393,7 +393,7 @@ export async function processEmotionScanner(formData: Record<string, any>) {
     const recommendations = [
       `Based on your ${dominantEmotion} mood, consider ${dominantEmotion === 'joy' ? 'sharing positivity' : 'outdoor activities'}`,
       region.urban.greenSpacePercent > 20 ? `Visit nearby green spaces (${region.urban.greenSpacePercent}% coverage in ${region.region})` : 'Find indoor plants for air purification',
-      weather?.temperature > 20 ? 'Take advantage of good weather for outdoor walks' : 'Consider light therapy during indoor time',
+      weather?.temperature ? (weather.temperature > 20 ? 'Take advantage of good weather for outdoor walks' : 'Consider light therapy during indoor time') : 'Consider indoor activities for well-being',
       airQuality && airQuality.aqi > 2 ? 'Use air purifier indoors due to current air quality' : 'Open windows for fresh air circulation'
     ]
     

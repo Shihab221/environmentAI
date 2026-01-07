@@ -203,14 +203,14 @@ const FeatureOutput: React.FC<FeatureOutputProps> = ({ featureId, data, isLoadin
     <div className="space-y-6">
       {/* Results Header */}
       {data && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center"
-        >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center"
+      >
           <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 via-emerald-500 to-green-700 bg-clip-text text-transparent mb-2">
             AI Analysis Results
-          </h2>
+        </h2>
           <p className="text-slate-600 dark:text-slate-400 mb-3">
             Powered by Hugging Face AI + Regional Environmental Data
           </p>
@@ -230,7 +230,7 @@ const FeatureOutput: React.FC<FeatureOutputProps> = ({ featureId, data, isLoadin
               </span>
             ) : null}
           </div>
-        </motion.div>
+      </motion.div>
       )}
 
       {/* Input Completeness Warning Banner */}
@@ -294,7 +294,7 @@ const FeatureOutput: React.FC<FeatureOutputProps> = ({ featureId, data, isLoadin
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Image className="w-5 h-5" aria-hidden="true" />
+                  <Cloud className="w-5 h-5" aria-hidden="true" />
                   <span>Disaster Risk Heatmap</span>
                 </CardTitle>
               </CardHeader>

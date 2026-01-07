@@ -136,6 +136,31 @@ environmentai/
    npm start
    ```
 
+## 🚀 Vercel Deployment
+
+The project is ready for Vercel deployment! 🎉
+
+### Required Environment Variables
+
+Set these in your Vercel dashboard (Project Settings → Environment Variables):
+
+- `NEXT_PUBLIC_GEMINI_API_KEY` - Your Google Gemini API key
+- `OPENWEATHER_API_KEY` - Your OpenWeatherMap API key
+
+### Deployment Steps
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Add the environment variables above
+4. Deploy!
+
+### AI Services Used
+
+- ✅ **Free Hugging Face Inference APIs** (no API key needed)
+- ✅ **Google Gemini API** for advanced AI features
+- ✅ **OpenWeatherMap API** for weather data
+- ✅ **Regional fallback data** when APIs are unavailable
+
 ## 🎯 Key Features Implementation
 
 ### Form Validation

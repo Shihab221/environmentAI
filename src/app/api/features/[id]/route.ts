@@ -55,15 +55,6 @@ export async function POST(
     // Process the feature with real AI/API integration
     const result = await processFeature(featureId, data)
 
-    // Check if there's an error in the result
-    if (result.error) {
-      return NextResponse.json({
-        success: false,
-        data: null,
-        message: result.error
-      })
-    }
-
     return NextResponse.json({
       success: true,
       data: result,
